@@ -26,4 +26,14 @@ readonly class UserRepository implements PasswordUpgraderInterface
             'UPDATE `user` SET `password` = :password WHERE `id` = :id', ['id' => $user->getId(), 'password' => $newHashedPassword]);
     }
 
+    public function getById(int $id): ?User
+    {
+        $result = $this->connection->getOne('SELECT `id` FROM `user` WHERE `id` = :id', ['id' => $id]);
+        return User::fromArray($result);
+    }
+
+    public function getAll(): array
+    {
+        return $this->connection->getMany('SELECT * FROM `user`');
+    }
 }

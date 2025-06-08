@@ -61,6 +61,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
     {
     }
 
+    public static function fromArray(array $result): User
+    {
+        $user = new self();
+
+        if (isset($data['id']) && is_numeric($data['id'])) {
+            $user->id = (int)$data['id'];
+        }
+
+        if (isset($data['email']) && is_string($data['email']) && trim($data['email']) !== '') {
+            $user->setEmail($data['email']);
+        }
+
+        if (isset($data['password']) && is_string($data['password'])) {
+            $user->setPassword($data['password']);
+        }
+
+        if (isset($data['roles']) && is_array($data['roles'])) {
+            $user->setRoles($data['roles']);
+        }
+
+        if (isset($data['isVerified'])) {
+            $user->setVerified((bool)$data['isVerified']);
+        }
+
+        if (isset($data['name']) && is_string($data['name'])) {
+            $user->setName($data['name']);
+        }
+
+        if (isset($data['surname']) && is_string($data['surname'])) {
+            $user->setSurname($data['surname']);
+        }
+
+        if (isset($data['address']) && is_string($data['address'])) {
+            $user->setAddress($data['address']);
+        }
+
+        if (isset($data['city']) && is_string($data['city'])) {
+            $user->setCity($data['city']);
+        }
+
+        if (isset($data['postalCode']) && is_string($data['postalCode'])) {
+            $user->setPostalCode($data['postalCode']);
+        }
+
+        if (isset($data['freeTextPassword']) && is_string($data['freeTextPassword'])) {
+            $user->freeTextPassword = $data['freeTextPassword'];
+        }
+
+        if (isset($data['freeTextPasswordVerification']) && is_string($data['freeTextPasswordVerification'])) {
+            $user->freeTextPasswordVerification = $data['freeTextPasswordVerification'];
+        }
+
+        return $user;
+    }
+
     public function getId(): int
     {
         return $this->id;

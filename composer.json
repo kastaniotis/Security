@@ -1,0 +1,23 @@
+{
+    "name": "iconic/security",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Iconic\\Security\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dimitris Kastaniotis",
+            "email": "d.kastaniotis@iconic.gr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/security-bundle": "^7.3",
+        "doctrine/doctrine-bundle": "^2.14",
+        "doctrine/orm": "^3.3",
+        "iconic/db": "^0.1.2"
+    }
+}

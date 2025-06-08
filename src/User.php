@@ -3,6 +3,8 @@
 namespace Iconic\Security;
 
 use Doctrine\ORM\Mapping as ORM;
+use Iconic\Assert\Assert;
+use Iconic\Assert\AssertError;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -61,6 +63,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
     {
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @return User
+     */
     public static function fromArray(array $data): User
     {
         $user = new self();
@@ -70,7 +76,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
         }
 
         if (isset($data['email']) && is_string($data['email']) && trim($data['email']) !== '') {
-            $user->setEmail($data['email']);
+            $email = $data['email'];
+            /** @var non-empty-string $email */
+            $user->setEmail($email);
         }
 
         if (isset($data['password']) && is_string($data['password'])) {
@@ -78,7 +86,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
         }
 
         if (isset($data['roles']) && is_array($data['roles'])) {
-            $user->setRoles($data['roles']);
+            $roles = $data['roles'];
+            /** @var list<string> $roles */
+            $user->setRoles($roles);
         }
 
         if (isset($data['isVerified'])) {

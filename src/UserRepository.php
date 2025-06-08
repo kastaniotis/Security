@@ -36,6 +36,9 @@ readonly class UserRepository implements PasswordUpgraderInterface
         return User::fromArray($result);
     }
 
+    /**
+     * @return array<int, mixed>
+     */
     public function getAll(): array
     {
         return $this->connection->getMany('SELECT * FROM `user`');

@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
     {
     }
 
-    public static function fromArray(array $result): User
+    public static function fromArray(array $data): User
     {
         $user = new self();
 

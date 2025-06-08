@@ -36,4 +36,9 @@ readonly class UserRepository implements PasswordUpgraderInterface
     {
         return $this->connection->getMany('SELECT * FROM `user`');
     }
+
+    public function verify(int $id): void
+    {
+        $this->connection->execute("UPDATE `user` SET `verified` = 1, `roles` = '[\"" . Role::USER->value . "\"]' WHERE `id` = ", [$id]);
+    }
 }

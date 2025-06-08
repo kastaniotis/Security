@@ -3,6 +3,7 @@
 namespace Iconic\Security;
 
 use Iconic\Db\DatabaseConnection;
+use Iconic\Db\Exception\NoResultException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -26,7 +27,10 @@ readonly class UserRepository implements PasswordUpgraderInterface
             'UPDATE `user` SET `password` = :password WHERE `id` = :id', ['id' => $user->getId(), 'password' => $newHashedPassword]);
     }
 
-    public function getById(int $id): ?User
+    /**
+     * @throws NoResultException
+     */
+    public function getById(int $id): IdentifiableUserInterface
     {
         $result = $this->connection->getOne('SELECT * FROM `user` WHERE `id` = ?', [$id]);
         return User::fromArray($result);

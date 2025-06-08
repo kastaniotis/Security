@@ -29,7 +29,7 @@ readonly class UserRepository implements PasswordUpgraderInterface
     public function getById(int $id): ?User
     {
         $result = $this->connection->getOne('SELECT * FROM `user` WHERE `id` = ?', [$id]);
-        return User::fromArray($result[0]);
+        return User::fromArray($result);
     }
 
     public function getAll(): array

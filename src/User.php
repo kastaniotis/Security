@@ -3,8 +3,6 @@
 namespace Iconic\Security;
 
 use Doctrine\ORM\Mapping as ORM;
-use Iconic\Assert\Assert;
-use Iconic\Assert\AssertError;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -288,5 +286,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
     public function isAdmin(): bool
     {
         return in_array(Role::ADMINISTRATOR->value, $this->getRoles());
+    }
+
+    public function isUser(): bool
+    {
+        return in_array(Role::USER->value, $this->getRoles());
     }
 }

@@ -9,6 +9,7 @@ interface IdentifiableUserInterface extends UserInterface
     public function getId(): int;
 
     public function isAdmin(): bool;
+    public function isUser(): bool;
 
     public function getEmail(): string;
 }

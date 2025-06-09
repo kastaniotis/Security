@@ -36,7 +36,7 @@ class DeleteUserForm extends AbstractType
             $data = $event->getData();
             $form = $event->getForm();
 
-            $form->getConfig()->getOptions()['attr']['action'] = $this->router->generate('delete', ['id' => $data->getId()]);
+            $form->getConfig()->getOptions()['attr']['action'] = $this->router->generate('delete', ['id' => $data['id']]);
         });
     }
 

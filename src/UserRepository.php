@@ -41,7 +41,7 @@ readonly class UserRepository implements PasswordUpgraderInterface
      */
     public function getAll(): array
     {
-        return $this->connection->getMany('SELECT * FROM `user`');
+        return $this->connection->getMany('SELECT * FROM `user` ORDER BY `id` DESC');
     }
 
     public function verify(int $id): void

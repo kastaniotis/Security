@@ -8,10 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\RouterInterface;
 
 class DeleteUserForm extends AbstractType
@@ -28,16 +25,12 @@ class DeleteUserForm extends AbstractType
             ->add('delete', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-danger',
+                    'onclick' => "return confirm('Delete?');",
                 ],
                 'label' => 'Delete',
-            ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
-
-            $form->getConfig()->getOptions()['attr']['action'] = $this->router->generate('delete-user', ['id' => $data['id']]);
-        });
+            ])
+            ->setAction($this->router->generate('delete-user'));
     }
 
     public function configureOptions(OptionsResolver $resolver)

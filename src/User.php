@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, IdentifiableUserInterface, OwnerUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -291,5 +291,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Identif
     public function isUser(): bool
     {
         return in_array(Role::USER->value, $this->getRoles());
+    }
+
+    public function isOwnerOf(OwnableInterface $ownable): bool
+    {
+        return $ownable->getOwner()->getId() === $this->getId();
     }
 }

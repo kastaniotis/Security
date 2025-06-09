@@ -21,7 +21,8 @@ class DeleteUserForm extends AbstractType
                     'class' => 'btn btn-danger',
                 ],
                 'label' => 'Delete',
-            ]);
+            ])
+            ->setAction('delete');
     }
 
     public function configureOptions(OptionsResolver $resolver)
